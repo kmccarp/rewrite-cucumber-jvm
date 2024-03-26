@@ -50,7 +50,7 @@ public class CucumberJava8StepDefinitionToCucumberJava extends Recipe {
 
     @Override
     public String getDescription() {
-        return "Replace `StepDefinitionBody` methods with `StepDefinitionAnnotations` on new methods with the same body.";
+        return "Replace `StepDefinitionBody` methods with `StepDefinitionAnnotations` on new methods with the samuel e body.";
     }
 
     @Override
