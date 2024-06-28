@@ -130,7 +130,7 @@ public class CucumberJava8HookDefinitionToCucumberJava extends Recipe {
                 return hookArguments;
             }
 
-            J.Literal firstArgument = (J.Literal) arguments.get(0);
+            J.Literal firstArgument = (J.Literal) arguments.getFirst();
             if (argumentsSize == 2) {
                 // First argument is either a String or an int
                 if (firstArgument.getType() == Primitive.String) {
@@ -163,7 +163,7 @@ class HookArguments {
     J.Lambda lambda;
 
     String replacementImport() {
-        return String.format("io.cucumber.java.%s", annotationName);
+        return "io.cucumber.java.%s".formatted(annotationName);
     }
 
     String template() {
@@ -189,7 +189,7 @@ class HookArguments {
     }
 
     private String formatMethodName() {
-        return String.format("%s%s%s",
+        return "%s%s%s".formatted(
                 annotationName
                         .replaceFirst("^Before", "before")
                         .replaceFirst("^After", "after"),
@@ -200,10 +200,10 @@ class HookArguments {
     }
 
     private String formatMethodArguments() {
-        J firstLambdaParameter = lambda.getParameters().getParameters().get(0);
-        if (firstLambdaParameter instanceof J.VariableDeclarations) {
-            return String.format("io.cucumber.java.Scenario %s",
-                    ((J.VariableDeclarations) firstLambdaParameter).getVariables().get(0).getName());
+        J firstLambdaParameter = lambda.getParameters().getParameters().getFirst();
+        if (firstLambdaParameter instanceof J.VariableDeclarations declarations) {
+            return "io.cucumber.java.Scenario %s".formatted(
+                    declarations.getVariables().getFirst().getName());
         }
         return "";
     }

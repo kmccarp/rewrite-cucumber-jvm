@@ -94,7 +94,7 @@ public class RegexToCucumberExpression extends Recipe {
                     // https://github.com/cucumber/cucumber-expressions/blob/main/java/heuristics.adoc
                     .filter(s -> s != null && (s.startsWith("^") || s.endsWith("$") || leadingAndTrailingSlash(s)))
                     .findFirst();
-            if (!possibleExpression.isPresent()) {
+            if (possibleExpression.isEmpty()) {
                 return annotation;
             }
 
@@ -108,7 +108,7 @@ public class RegexToCucumberExpression extends Recipe {
             }
 
             // Replace regular expression with cucumber expression
-            final String finalReplacement = String.format("\"%s\"", replacement);
+            final String finalReplacement = "\"%s\"".formatted(replacement);
             return annotation.withArguments(ListUtils.map(annotation.getArguments(), arg -> ((J.Literal) arg)
                     .withValue(finalReplacement)
                     .withValueSource(finalReplacement)));

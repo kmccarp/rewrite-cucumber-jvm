@@ -81,7 +81,7 @@ public class CucumberJava8StepDefinitionToCucumberJava extends Recipe {
             }
 
             // Annotations require a String literal
-            Expression stringExpression = arguments.get(0);
+            Expression stringExpression = arguments.getFirst();
             if (!(stringExpression instanceof J.Literal)) {
                 return SearchResult.found(m, "TODO Migrate manually");
             }
@@ -111,7 +111,7 @@ public class CucumberJava8StepDefinitionToCucumberJava extends Recipe {
             if (m.getMethodType() == null) {
                 return m;
             }
-            String replacementImport = String.format("%s.%s",
+            String replacementImport = "%s.%s".formatted(
                     m.getMethodType().getDeclaringType().getFullyQualifiedName()
                             .replace("java8", "java").toLowerCase(),
                     m.getSimpleName());
